@@ -54,7 +54,32 @@ p{ margin: 0; }
 </style>
 
 <script type="text/javascript">
+
+function getUrlParam(name) {
+	// var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //����һ������Ŀ�������������ʽ����
+	// var r = window.location.search.substr(1).match(reg); //ƥ��Ŀ�����
+	// if (r != null) return unescape(r[2]); return null; //���ز���ֵ
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i=0;i<vars.length;i++) {
+		var pair = vars[i].split("=");
+		if(pair[0] == name){return pair[1];}
+	}
+	return(false);
+}
+
 $(function() {
+	var xx = getUrlParam('name');
+
+	if(xx){
+		$('#text_name').html(decodeURI(xx));
+
+	}else {
+		$('#text_name').html('小姐姐');
+	}
+
+
+
 	$('#yes').click(function(event) {
 		modal('我就知道小姐姐您一定会愿意的。(^_^)', function() {
 			$('.page_one').addClass('hide');
@@ -160,7 +185,7 @@ function typeWrite(){
 		<div class="text_wrapper">
 			<img src="images/a8.png" alt="">
 			<div class="text">
-				小姐姐，我好喜欢你，你愿意做我女朋友吗？
+				<span id="text_name"></span>，我好喜欢你，你愿意做我女朋友吗？
 			</div>
 		</div>
 	</div>
